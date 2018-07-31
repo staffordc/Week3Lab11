@@ -14,13 +14,18 @@ namespace Week3Lab11MovieList
             while (Quit == true)
             {
                 var choice = Menu();
-                //valid menu selection
+                if (choice == "Quit")
+                {
+                    Quit = false;
+                        continue;
+                }
                 var movies = ListMovies();
                 foreach (Movie movie in movies)
                 {
                     if (movie.GetCategory() == choice)
                     {
-                        Console.WriteLine($"{movie.GetTitle()}\n");
+                        Console.WriteLine($"{movie.GetTitle()}");
+                        
                     }
                 }
                 
@@ -38,6 +43,7 @@ namespace Week3Lab11MovieList
     5. ROMANCE
     6. COMEDY
     7. ART HOUSE
+    8. QUIT
 ENTER THE TYPE FOR THE FILM OF THAT TYPE. MAKE SURE THERE ARE CAPITALS FOR ALL WORDS");
             string theOption = Console.ReadLine();
             if (IsValidMenuOption(theOption))
@@ -80,11 +86,33 @@ ENTER THE TYPE FOR THE FILM OF THAT TYPE. MAKE SURE THERE ARE CAPITALS FOR ALL W
             {
                 return true;
             }
+            else if (theOption == "Quit")
+            {
+                Console.WriteLine("Woah! Are you sure!?");
+                var ValidInputYN = Console.ReadKey();
+                if (ValidInputYN.Key == ConsoleKey.Y)
+                {
+                    Console.WriteLine("So long!");
+                    Console.ReadKey();
+                    return true;
+                }
+                else if (ValidInputYN.Key == ConsoleKey.N)
+                {
+                    Console.WriteLine("You got it");
+                    return false;
+                }
+                else
+                {
+                    Console.WriteLine("Try a Y, or an N instead");
+                    return false;
+                }
+            }
             else
             {
                 Console.WriteLine("THAT WAS NOT A CHOICE: MAKE SURE YOU HAVE CORRECT CASING.");
                 return false;
             }
+            
         }
         static List<Movie> ListMovies()
         {
